@@ -19,14 +19,10 @@ def main():
     movingsprites = pygame.sprite.Group()
     movingsprites.add(player)
     movingsprites.add(player2)
-
-    rooms = []
+    ball = Ball(400, 200)
+    movingsprites.add(ball)
 
     room = Room()
-    rooms.append(room)
-
-    current_room_no = 0
-    current_room = rooms[current_room_no]
 
     clock = pygame.time.Clock()
 
@@ -79,15 +75,16 @@ def main():
                     player2.changespeed(0, -5)
 
         # --- Game Logic ---
-
-        player.move(current_room.wall_list)
-        player2.move(current_room.wall_list)
+        player.move(room.paddle_wall_list)
+        player2.move(room.paddle_wall_list)
+        ball.move(room.wall_list)
+        
 
         # --- Drawing ---
         screen.fill(BLACK)
 
         movingsprites.draw(screen)
-        current_room.wall_list.draw(screen)
+        room.wall_list.draw(screen)
 
         pygame.display.flip()
 
