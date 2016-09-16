@@ -34,14 +34,14 @@ class Player(pygame.sprite.Sprite):
     speed_x = 0
     speed_y = 0
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, image_x, image_y):
         """ Constructor function """
 
         # Call the parent's constructor
         super().__init__()
 
         # Set height, width
-        self.image = pygame.Surface([100, 10])
+        self.image = pygame.Surface([image_x, image_y])
         self.image.fill(WHITE)
 
         # Make our top-left corner the passed-in location.
