@@ -28,52 +28,53 @@ def main():
 
     done = False
 
-    switch = [False, 0, 0]
+    switch = [False, None]
     while not done:
-        #pygame.key.set_repeat(100, 10)
+
 
         # --- Event Processing ---
 
         for event in pygame.event.get():
+            pygame.key.set_repeat(100, 10)
             if event.type == pygame.QUIT:
                 done = True
-
-            if event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     player.changespeed(-5, 0)
-                if event.key == pygame.K_RIGHT:
+                elif event.key == pygame.K_RIGHT:
                     player.changespeed(5, 0)
-                if event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP:
                     player.changespeed(0, -5)
-                if event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_DOWN:
                     player.changespeed(0, 5)
                 # player2
-                if event.key == pygame.K_a:
+                elif event.key == pygame.K_a:
                     player2.changespeed(-5, 0)
-                if event.key == pygame.K_d:
+                elif event.key == pygame.K_d:
                     player2.changespeed(5, 0)
-                if event.key == pygame.K_w:
+                elif event.key == pygame.K_w:
                     player2.changespeed(0, -5)
-                if event.key == pygame.K_s:
+                elif event.key == pygame.K_s:
                     player2.changespeed(0, 5)
-                if event.key == pygame.K_i:
-                    switch[0] = True
-                    switch[1] = player.rect.x
-                    switch[2] = player.rect.y
+                elif event.key == pygame.K_i:
+                    if switch[0] is False:
+                        switch[1] = player
+                        temp_player = player
+                        player = player_90
+                        temp_player.kill()
+                        switch[0] = True
+                        screen.blit(player.image, (100, 100))
+                        movingsprites.add(player)
+
+                elif event.key == pygame.K_p:
+                    #if switch is True:
                     temp_player = player
-                    player = player_90
+                    player = switch[1]
+                    switch[1] = player
                     temp_player.kill()
+                    switch[0] = False
                     screen.blit(player.image, (100, 100))
                     movingsprites.add(player)
-
-                if event.key == pygame.K_p:
-
-                    temp_player = player
-                    player = player_90
-                    temp_player.kill()
-                    screen.blit(player.image, (100, 100))
-                    movingsprites.add(player)
-
                     pygame.display.update()
                 # if event.key == pygame.K_p:
                 # if event.key == pygame.K_i:
@@ -83,23 +84,23 @@ def main():
                 #        player2.rect.top=200
                 #        player2.rect.bottom=300
 
-            if event.type == pygame.KEYUP:
+            elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT:
                     player.changespeed(5, 0)
-                if event.key == pygame.K_RIGHT:
+                elif event.key == pygame.K_RIGHT:
                     player.changespeed(-5, 0)
-                if event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP:
                     player.changespeed(0, 5)
-                if event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_DOWN:
                     player.changespeed(0, -5)
                 # player2
-                if event.key == pygame.K_a:
+                elif event.key == pygame.K_a:
                     player2.changespeed(5, 0)
-                if event.key == pygame.K_d:
+                elif event.key == pygame.K_d:
                     player2.changespeed(-5, 0)
-                if event.key == pygame.K_w:
+                elif event.key == pygame.K_w:
                     player2.changespeed(0, 5)
-                if event.key == pygame.K_s:
+                elif event.key == pygame.K_s:
                     player2.changespeed(0, -5)
                 # if event.key == pygame.K_i:
                 #    player2.image = pygame.Surface([10, 100])
